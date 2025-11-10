@@ -26,10 +26,12 @@ export async function buscarBrasilApiCep(args: string) {
 
                 const endereco: endereco = {
                     cep: data.cep,
+                    logradouro: data.street,
+                    bairro: data.neighborhood,
                     localidade: data.city,
                     uf: data.state,
-                    estado: estadosBrasil[estado],
-                    regiao: "",
+                    estado: estadosBrasil[estado]!,
+                    regiao: getRegiao(data.state),
                 }
 
                 return endereco
@@ -43,14 +45,63 @@ const UF = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'M
 
 type resBrasilApi = {
     cep: string,
-    state: string,
-    city: string,
-    neighborhood: string,
-    street: string,
+    street: string, //logradouro
+    neighborhood: string, //bairro
+    city: string, //localidade
+    state: string, // UF do estado
     service: string
 }
 
-export function isResBrasilApi(obj: any): obj is resBrasilApi {
-    return 'cep' in obj && 'state' in obj && 'neighborhood' in obj
-        && 'city' in obj && 'street' in obj && 'service' in obj
+
+type chavesUFRegiao = keyof typeof UFRegiao;
+
+/**
+ * @param uf 
+ * @returns região do estado fornecido
+ */ 
+export function getRegiao(uf: string) {
+
+  let key = uf as chavesUFRegiao
+
+  return UFRegiao[key];
+}
+
+
+enum UFRegiao {
+  // Região Norte
+  AC = "Norte",
+  AP = "Norte",
+  AM = "Norte",
+  PA = "Norte",
+  RO = "Norte",
+  RR = "Norte",
+  TO = "Norte",
+  
+  // Região Nordeste
+  AL = "Nordeste",
+  BA = "Nordeste",
+  CE = "Nordeste",
+  MA = "Nordeste",
+  PB = "Nordeste",
+  PE = "Nordeste",
+  PI = "Nordeste",
+  RN = "Nordeste",
+  SE = "Nordeste",
+  
+  // Região Centro-Oeste
+  DF = "Centro-Oeste",
+  GO = "Centro-Oeste",
+  MT = "Centro-Oeste",
+  MS = "Centro-Oeste",
+  
+  // Região Sudeste
+  ES = "Sudeste",
+  MG = "Sudeste",
+  RJ = "Sudeste",
+  SP = "Sudeste",
+  
+  // Região Sul
+  PR = "Sul",
+  RS = "Sul",
+  SC = "Sul"
 }
