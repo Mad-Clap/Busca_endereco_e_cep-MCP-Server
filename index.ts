@@ -32,7 +32,7 @@ app.registerTool(
 
       let cepAux = res.cep;
 
-      let messagem = "Endereço encontrado:"
+      let mensagem = "Endereço encontrado:"
 
       if (!res.logradouro && !res.bairro) {
         const elicitation = await elicitacao(res.localidade);
@@ -51,8 +51,8 @@ app.registerTool(
           }
 
           if(cepAux === res.cep)
-            {messagem = "Infelizmente não foi encontrado um CEP por rua/logradouro para o endereço fornecido. Essas foram as informações encontradas:"}
-          else messagem = "O endereço fornecido possui um CEP por rua/logradouro:"
+            {mensagem = "Infelizmente não foi encontrado um CEP por rua/logradouro para o endereço fornecido. Essas foram as informações encontradas:"}
+          else mensagem = "O endereço fornecido possui um CEP por rua/logradouro:"
 
         }
 
@@ -60,7 +60,7 @@ app.registerTool(
       return {
         content: [{
           type: "text", text: `
-${messagem}
+${mensagem}
 CEP: ${res.cep}
 Logradouro: ${res.logradouro || "N/A"}
 Complemento: ${res.complemento || "N/A"}
@@ -166,7 +166,7 @@ app.registerPrompt(
         },
       },
     ],
-  }),
+  })
 );
 
 
@@ -211,7 +211,7 @@ async function elicitacao(localidade: string) {
           description: 'complemento'
         }
       },
-      required: ['uf', 'localidade', 'logradouro', 'numero', 'bairro']
+      required: ['logradouro', 'numero', 'bairro']
     }
   });
 }
