@@ -31,7 +31,25 @@ Busca o CEP de um endereço fornecido
 Auxilia na utilização da ferramenta de busca de CEP por endereço, fornecendo o prompt para o usuário perguntar qual o CEP do endereço fornecido
 
  
+## Instalação 💾
 
+para instalar clone o repositório e adicione o servidor nas configurações do seu agente de IA.
+
+Por exemplo, no Claude Desktop basta seguir o caminho "arquivo -> configurações -> desenvolvedor -> editar Config" e adicionar o servidor como no código abaixo, ajustando o caminho da pasta em que ele foi baixado. É necessário o [bun](https://bun.com/) para rodar o projeto.
+
+````
+{ "servers": {
+	"Busca-Cep-Server": {
+		"type": "stdio",
+		"command": "bun",
+		"args": [ "run",   "C:/User/MCP/Busca_endereco_e_cep-MCP-Server/index.ts"]
+	}
+ },
+	"inputs": []
+}
+````
+
+Também é possível utilizar o executável disponibilizado nos releases, o configurando da mesma forma.
 
 ## Tecnologias Utilizadas 🛠️
 * TypeScript
